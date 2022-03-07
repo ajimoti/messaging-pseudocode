@@ -1,0 +1,15 @@
+charity -(M:1)-> user
+    "a charity can have multiple users (donors, and admins)"
+    "a user can belong to one charities"
+
+charity -(1:M)-> thread
+    "a charity can have multiple threads"
+    "a thread can only belong to one charity"
+
+user -(1:M)-> thread
+    "a user can have multiple threads"
+    "a thread can only belong to one user"
+
+thread -(1:M)-> message
+    "a thread can have multiple messages"
+    "a message can only belong to one thread"

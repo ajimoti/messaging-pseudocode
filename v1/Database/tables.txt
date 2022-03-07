@@ -1,0 +1,39 @@
+[user]
+    COLUMNS
+        id                  AUTO_INCREMENT INT PRIMARY_KEY
+        full_name           VARCHAR
+        email               VARCHAR UNIQUE
+        profile_photo_url   VARCHAR NULL
+        phone_number        VARCHAR NULL
+        password            VARCHAR
+
+[charity_user]
+    COLUMNS
+        id                  AUTO_INCREMENT INT PRIMARY_KEY
+        charity_id          INT FOREIGN_KEY (references `id` on `charity` table)
+        user_id             INT FOREIGN_KEY (references `id` on `user` table)
+        user_type           ENUM('donor', 'admin')
+
+        UNIQUE(charity_id, user_id, user_type)
+
+[thread]
+    id                  AUTO_INCREMENT INT PRIMARY_KEY
+    charity_id          INT FOREIGN_KEY (references `id` on `charity` table)
+    donor_id            INT FOREIGN_KEY (references `id` on `user` table) 
+    last_message_id     INT FOREIGN_KEY (references `id` on `message` table)
+    updated_at          DATETIME
+
+    INDEX
+        idx_charity_id_donor_id (charity_id, donor_id)
+
+[message]
+    COLUMNS
+        id                  AUTO_INCREMENT INT PRIMARY_KEY
+        thread_id           INT FOREIGN_KEY (references `id` on `thread` table)
+        user_id             INT FOREIGN_KEY (references `id` on `user` table)
+        content             TEXT (character_set = utf8mb4, collation = utf8mb4_unicode_ci)
+        sent_date           DATETIME TIMESTAMP
+        text_delivered      BOOLEAN DEFAULT FALSE
+
+    INDEX
+        idx_thread_id_sender_id (thread_id, user_id)

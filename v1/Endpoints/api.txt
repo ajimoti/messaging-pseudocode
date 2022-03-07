@@ -1,0 +1,127 @@
+POST charity/messages/send
+    headers:
+        Authorization: (required) Bearer <admin_access_token>
+
+    params:
+        (required) message
+        (required) donorId
+
+    response:
+        {
+            "message": "message sent"
+        }
+
+
+
+===========
+
+
+
+POST charity/messages/receive
+
+    params:
+        (required) fromNumber
+        (required) toNumber
+        (required) message
+
+    response:
+        {
+            "message": "message received"
+        }
+
+
+
+============
+
+
+
+GET charity/threads
+    headers:
+        Authorization: (required) Bearer <admin_access_token>
+
+    params:
+        (optional) perPage
+
+    response:
+        {
+            "threads": [
+                .....
+                {
+                    "id",
+                    "donor": {
+                        "id",
+                        "fullName",
+                        "profilePhotoUrl"
+                    },
+                    "lastMessage": {
+                        "id",
+                        "content",
+                        "sentDate",
+                    }
+                },
+                {
+                    "id",
+                    "donor": {
+                        "id",
+                        "fullName",
+                        "profilePhotoUrl"
+                    },
+                    "lastMessage": {
+                        "id",
+                        "content",
+                        "sentDate",
+                    }
+                },
+                .....
+            ],
+            "total": <total_threads_count>,
+            "nextPage": <next_page_url>
+        }
+
+
+==========
+
+
+GET charity/threads/{threadId}
+    headers:
+        Authorization: (required) Bearer <admin_access_token>
+
+    params:
+        (optional) perPage
+
+    response:
+        {
+            "messages": [
+                .....
+                {
+                    "id",
+                    "message",
+                    "sentDate",
+                    "isDonor",
+                    "sender": {
+                        "id",
+                        "fullName",
+                        "profilePhotoUrl"
+                    }
+                },
+                {
+                    "id",
+                    "message",
+                    "sentDate",
+                    "isDonor",
+                    "sender": {
+                        "id",
+                        "fullName",
+                        "profilePhotoUrl"
+                    }
+                }
+                .....
+            ],
+            "total": <total_messages_count>,
+            "nextPage": <next_page_url>
+        }
+
+
+
+
+============
